@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>老钟楼多路径报时传输控制台</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+<header class="topbar">
+  <div>
+    <h1>钟楼多路径传输协议 <span>CMP/1</span></h1>
+    <p>移动网卡 × 窄带电台：子流、映射、重排、联动拥塞与调度对比</p>
+  </div>
+  <div class="controls">
+    <div id="statusPill" class="pill idle">未运行</div>
+    <button id="btnCompare">运行两种调度对比</button>
+    <button id="btnLoop">开始循环演示</button>
+    <button id="btnStop" class="secondary">停止循环</button>
+  </div>
+</header>
+
+<section class="metric-row" id="metrics"></section>
+
+<main class="grid">
+  <section class="card span-2">
+    <div class="card-title">
+      <h2>① 各条子流状态 / 拥塞窗口</h2>
+      <span id="alpha" class="mono"></span>
+    </div>
+    <div id="paths" class="paths"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-title"><h2>③ 接收端重排缓冲</h2><span id="reorderSummary" class="hint"></span></div>
+    <div class="buffer-bar"><div id="bufferFill"></div></div>
+    <div id="reorder" class="reorder"></div>
+  </section>
+
+  <section class="card span-2">
+    <div class="card-title"><h2>② 数据序号 DSN ↔ 子流序号 SSN 映射</h2><span class="hint">最新记录在上；重传会在新子流上生成新映射</span></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>时间</th><th>路径/子流</th><th>DSN 区间</th><th>SSN 区间</th><th>长度</th><th>原因/标记</th></tr></thead>
+        <tbody id="mappings"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-title"><h2>④ 调度策略吞吐 / 时延对比</h2><span class="hint">相同链路种子</span></div>
+    <div id="comparison" class="comparison"></div>
+  </section>
+
+  <section class="card">
+    <div class="card-title"><h2>地址池 / 上限补齐</h2><span id="queueSummary" class="hint"></span></div>
+    <div id="queued" class="queued"></div>
+  </section>
+
+  <section class="card span-2">
+    <div class="card-title"><h2>联动拥塞公式最近步骤</h2><span class="hint">α 与增量按 pkg/cc 公式逐步计算</span></div>
+    <div class="table-wrap short">
+      <table>
+        <thead><tr><th>类型</th><th>路径</th><th>前窗口</th><th>α</th><th>增量</th><th>后窗口</th><th>原因</th></tr></thead>
+        <tbody id="steps"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card span-2">
+    <div class="card-title"><h2>事件流</h2></div>
+    <div id="events" class="events"></div>
+  </section>
+</main>
+
+<footer>纯 Go 标准库 + embed 静态页面；数据来自 <code>/api/state</code> 实时快照。</footer>
+<script src="/static/app.js"></script>
+</body>
+</html>

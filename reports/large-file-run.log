@@ -1,0 +1,8 @@
+clocktower multipath matrix: 43 scenarios, 4 MiB/run
+large exact-byte transfer: 300 MiB...
+large PASS: 314572800 bytes in 19.495877458s, 16.1 MByte/s
+  sent:     /var/folders/1h/7cv44_rs4hvb3nbb6wyt2p100000gn/T/clocktower-mptest-4140855854/random-file.bin
+  received: /var/folders/1h/7cv44_rs4hvb3nbb6wyt2p100000gn/T/clocktower-mptest-4140855854/received-file.bin
+  compare:  byte-for-byte OK
+name  baseline MB/s  minRTT MB/s  RR MB/s  ratio  lat min/rr/base ms  status
+report: reports/large-file-300m.json / reports/large-file-300m.md
